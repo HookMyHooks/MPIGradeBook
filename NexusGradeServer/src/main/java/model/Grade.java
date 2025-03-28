@@ -4,6 +4,15 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+
+@Getter
+@Setter
+
 @Entity
 @Table(name = "grades")
 public class Grade {
@@ -27,44 +36,6 @@ public class Grade {
     @JoinColumn(name = "\"studentId\"", nullable = false)
     private model.Student student;
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
-    public model.Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(model.Subject subject) {
-        this.subject = subject;
-    }
-
-    public model.Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(model.Student student) {
-        this.student = student;
-    }
 
 }

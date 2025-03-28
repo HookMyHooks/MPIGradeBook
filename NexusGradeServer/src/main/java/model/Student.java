@@ -5,6 +5,15 @@ import jakarta.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+
+@Getter
+@Setter
 @Entity
 @Table(name = "students")
 public class Student {
@@ -26,44 +35,6 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private Set<Grade> grades = new LinkedHashSet<>();
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public model.User getUsers() {
-        return users;
-    }
-
-    public void setUsers(model.User users) {
-        this.users = users;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Set<Grade> getGrades() {
-        return grades;
-    }
-
-    public void setGrades(Set<Grade> grades) {
-        this.grades = grades;
-    }
 
 }
