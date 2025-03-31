@@ -1,0 +1,67 @@
+.student-dashboard {
+    padding: 2rem 3rem;
+    background-color: #b2dfa7;
+    min-height: 100vh;
+  
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+  
+    .average-box {
+      background: linear-gradient(135deg, #dfe9f3, #ffffff);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 0.2vh 0.8vh rgba(0, 0, 0, 0.05);
+      text-align: center;
+  
+      h3 {
+        font-size: 1.2rem;
+        color: #34495e;
+        margin-bottom: 0.5rem;
+      }
+  
+      .average {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #0070f3;
+      }
+    }
+  
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #34495e;
+    }
+  
+    .grades-list {
+      display: grid;
+      gap: 1rem;
+  
+      .grade-item {
+        background: #ffffff;
+        padding: 1.25rem;
+        border: 0.1vh solid #e0e0e0;
+        border-radius: 1vh;
+        box-shadow: 0 0.2vh 1vh rgba(0, 0, 0, 0.04);
+        transition: transform 0.2s ease;
+  
+        &:hover {
+          transform: translateY(-3px);
+        }
+  
+        p {
+          margin: 0.25rem 0;
+          font-size: 1rem;
+          color: #2d3436;
+  
+          strong {
+            color: #636e72;
+          }
+        }
+      }
+    }
+  }
+  
