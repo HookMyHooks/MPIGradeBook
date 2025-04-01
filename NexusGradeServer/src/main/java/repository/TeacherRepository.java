@@ -1,0 +1,32 @@
+package repository;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import model.Teacher;
+
+import java.util.List;
+
+public class TeacherRepository {
+    @PersistenceContext
+    private EntityManager em;
+
+    public Teacher findById(int id) {
+        return em.find(Teacher.class, id);
+    }
+
+    public List<Teacher> findAll() {
+        return em.createQuery("SELECT t FROM Teacher t", Teacher.class).getResultList();
+    }
+
+    public void save(Teacher teacher) {
+        em.persist(teacher);
+    }
+
+    public void update(Teacher teacher) {
+        em.merge(teacher);
+    }
+
+    public void delete(Teacher teacher) {
+        em.remove(teacher);
+    }
+}
