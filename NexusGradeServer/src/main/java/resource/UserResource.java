@@ -1,10 +1,8 @@
 package resource;
 import dto.UserDTO;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import repository.UserRepository;
 import rest.UserService;
 
@@ -25,5 +23,30 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public UserDTO getUserById(@PathParam("id") int id) {
         return service.getById(id);
+    }
+
+
+    @POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(UserDTO dto) {
+        String token = service.login(dto.getUsername(), dto.getPassword());
+        if (token == null) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials").build();
+        }
+        return Response.ok().entity("{\"token\": \"" + token + "\"}").build();
+    }
+
+    @POST
+    @Path("/register")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response register(UserDTO dto) {
+        boolean success = service.register(dto.getUsername(), dto.getPassword(), dto.getUsername() + "@default.com");
+        if (success) {
+            return Response.ok("User registered").build();
+        } else {
+            return Response.status(Response.Status.CONFLICT).entity("Username already exists").build();
+        }
     }
 }
