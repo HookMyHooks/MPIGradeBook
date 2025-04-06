@@ -2,7 +2,9 @@ package rest;
 
 import dto.UserDTO;
 import mapper.UserMapper;
+import model.User;
 import repository.UserRepository;
+import utils.JwtUtil;
 
 import java.util.List;
 
@@ -21,5 +23,25 @@ public class UserService {
 
     public List<UserDTO> getAll() {
         return repo.findAll().stream().map(UserMapper::toDTO).toList();
+    }
+
+
+    public String login(String username, String password) {
+        User user = repo.findByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            return JwtUtil.generateToken(username);
+        }
+        return null;
+    }
+
+    public boolean register(String username, String password, String email) {
+        if (repo.findByUsername(username) != null) return false;
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password); // Ideally hash it
+        user.setEmail(email);
+        repo.save(user);
+        return true;
     }
 }

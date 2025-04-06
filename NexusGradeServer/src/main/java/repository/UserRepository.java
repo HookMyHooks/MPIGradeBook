@@ -1,5 +1,6 @@
 package repository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import model.Student;
 import model.User;
@@ -28,4 +29,17 @@ public class UserRepository {
     public void delete(User user) {
         em.remove(user);
     }
+
+
+
+    public User findByUsername(String username) {
+        try {
+            return em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
 }
