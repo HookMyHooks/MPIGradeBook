@@ -1,0 +1,68 @@
+.class-management-container {
+    max-width: 60vh;
+    margin: 2rem auto;
+    background: #f5f5ff;
+    padding: 2rem;
+    border-radius: 1.6vh;
+    box-shadow: 0 0.4vh 1.2vh rgba(123, 104, 238, 0.2);
+  
+    h2 {
+      text-align: center;
+      color: #6a5acd;
+      margin-bottom: 1.5rem;
+    }
+  
+    .student-form {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+  
+      input {
+        flex: 1;
+        padding: 0.75rem;
+        border-radius: 1vh;
+        border: 0.1vh solid #7b68ee;
+      }
+  
+      button {
+        padding: 0.75rem 1.5rem;
+        background-color: #6a5acd;
+        color: white;
+        border: none;
+        border-radius: 1vh;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: #7b68ee;
+        }
+      }
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+  
+      li {
+        background: #e6e6fa;
+        padding: 0.75rem 1rem;
+        border-radius: 1vh;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+  
+        button {
+          background: none;
+          border: none;
+          color: #e53935;
+          font-weight: bold;
+          cursor: pointer;
+  
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+ 

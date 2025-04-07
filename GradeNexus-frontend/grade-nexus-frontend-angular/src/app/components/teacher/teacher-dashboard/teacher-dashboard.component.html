@@ -1,21 +1,27 @@
-<section class="teacher-dashboard">
-    <h2>Bun venit, doamna profesoară!</h2>
-  
-    <form class="grade-form" (ngSubmit)="addGrade()">
-      <input type="text" placeholder="Materie" [(ngModel)]="newGrade.subject" name="subject" required />
-      <input type="text" placeholder="Elev" [(ngModel)]="newGrade.student" name="student" required />
-      <input type="number" placeholder="Notă" [(ngModel)]="newGrade.value" name="value" required min="1" max="10" />
-      <button type="submit">Adaugă Notă</button>
-    </form>
-  
-    <h3>Notele existente:</h3>
-    <div class="grades-list">
-      <div class="grade-item" *ngFor="let grade of grades">
-        <p><strong>Materie:</strong> {{ grade.subject }}</p>
-        <p><strong>Elev:</strong> {{ grade.student }}</p>
-        <p><strong>Notă:</strong> {{ grade.value }}</p>
-        <p><strong>Data:</strong> {{ grade.date | date }}</p>
-      </div>
-    </div>
-  </section>
-  
+<div class="professor-dashboard">
+  <header class="dashboard-header">
+    <h1><i class="fas fa-chalkboard-teacher"></i> Professor Dashboard</h1>
+  </header>
+
+  <nav class="dashboard-nav">
+    <button (click)="setView('add')" [class.active]="currentView === 'add'">
+      <i class="fas fa-plus-circle"></i> Add Grade
+    </button>
+    <button (click)="setView('list')" [class.active]="currentView === 'list'">
+      <i class="fas fa-list"></i> Grades List
+    </button>
+    <button (click)="setView('history')" [class.active]="currentView === 'history'">
+      <i class="fas fa-history"></i> Grades History
+    </button>
+    <button (click)="setView('class')" [class.active]="currentView === 'class'">
+      <i class="fas fa-users"></i> Student Management
+    </button>
+  </nav>
+
+  <main class="dashboard-content">
+    <app-add-grade *ngIf="currentView === 'add'"></app-add-grade>
+    <app-grade-list *ngIf="currentView === 'list'"></app-grade-list>
+    <app-grade-history *ngIf="currentView === 'history'"></app-grade-history>
+    <app-class-management *ngIf="currentView === 'class'"></app-class-management>
+  </main>
+</div>

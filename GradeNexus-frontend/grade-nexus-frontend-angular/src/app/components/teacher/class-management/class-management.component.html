@@ -1,1 +1,16 @@
-<p>class-management works!</p>
+<div class="class-management-container">
+    <h2>Student Management</h2>
+  
+    <form (ngSubmit)="addStudent()" class="student-form">
+      <input type="text" [(ngModel)]="newStudent" name="newStudent" placeholder="Student Name:" required />
+      <button type="submit">Add</button>
+    </form>
+  
+    <ul>
+      <li *ngFor="let student of students; let i = index">
+        {{ student }}
+        <button (click)="removeStudent(i)">Șterge</button>
+      </li>
+    </ul>
+  </div>
+  

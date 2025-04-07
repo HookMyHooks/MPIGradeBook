@@ -7,7 +7,7 @@ import { RegisterComponent } from "./components/auth/register/register.component
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RegisterComponent],
+  imports: [TeacherDashboardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

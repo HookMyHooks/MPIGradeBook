@@ -1,40 +1,23 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AddGradeComponent } from '../add-grade/add-grade.component';
+import { GradeListComponent } from '../grade-list/grade-list.component';
+import { GradeHistoryComponent } from '../grade-history/grade-history.component';
+import { ClassManagementComponent } from '../class-management/class-management.component';
 
 @Component({
   standalone: true,
   selector: 'app-teacher-dashboard',
   templateUrl: './teacher-dashboard.component.html',
   styleUrls: ['./teacher-dashboard.component.scss'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, AddGradeComponent, GradeListComponent, GradeHistoryComponent, ClassManagementComponent],
 })
 export class TeacherDashboardComponent {
-  grades: { subject: string; student: string; value: number; date: Date }[] = [
-    { subject: 'Matematică', student: 'Bianca Nechita', value: 9, date: new Date('2025-03-20') },
-    { subject: 'Română', student: 'Andrei Popescu', value: 10, date: new Date('2025-03-21') }
-  ];
+  currentView: 'add' | 'list' | 'history' | 'class' = 'add';
 
-  newGrade = {
-    subject: '',
-    student: '',
-    value: 0
-  };
-
-  addGrade() {
-    if (this.newGrade.subject && this.newGrade.student && this.newGrade.value > 0) {
-      this.grades.push({
-        subject: this.newGrade.subject,
-        student: this.newGrade.student,
-        value: this.newGrade.value,
-        date: new Date()
-      });
-
-      this.newGrade = {
-        subject: '',
-        student: '',
-        value: 0
-      };
-    }
+  setView(view: 'add' | 'list' | 'history' | 'class') {
+    this.currentView = view;
   }
 }
+
