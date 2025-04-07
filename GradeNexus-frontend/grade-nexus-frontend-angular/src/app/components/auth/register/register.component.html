@@ -33,7 +33,7 @@
   
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" formControlName="password">
+        <input type="password" id="password" formControlName="userPassword">
         <div class="error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
           Minimum 6 characters
         </div>
