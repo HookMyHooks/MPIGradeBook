@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GradeListComponent } from '../grade-list/grade-list.component';
+import { GradeItemComponent } from '../grade-item/grade-item.component';
+import { AverageComponent } from '../average/average.component';
 
 @Component({
   selector: 'app-student-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, GradeListComponent, GradeItemComponent, AverageComponent],
   templateUrl: './student-dashboard.component.html',
-  styleUrl: './student-dashboard.component.scss'
+  styleUrls: ['./student-dashboard.component.scss']
 })
 export class StudentDashboardComponent {
   grades = [
@@ -14,4 +17,14 @@ export class StudentDashboardComponent {
     { subject: 'Română', teacher: 'Prof. Bichir', value: 10, date: new Date('2025-03-20') },
     { subject: 'Istorie', teacher: 'Prof. Chelaru', value: 8, date: new Date('2025-03-15') }
   ];
+
+  selectedGradeIndex: number | null = null;
+
+  selectGrade(index: number) {
+    this.selectedGradeIndex = index;
+  }
+
+  clearSelection() {
+    this.selectedGradeIndex = null;
+  }
 }

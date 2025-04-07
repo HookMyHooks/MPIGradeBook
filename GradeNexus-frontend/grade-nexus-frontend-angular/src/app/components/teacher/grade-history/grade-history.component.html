@@ -1,1 +1,23 @@
-<p>grade-history works!</p>
+<div class="grade-history-container">
+    <h2>Grade History</h2>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Subject</th>
+          <th>Grade</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let h of history">
+          <td>{{ h.student }}</td>
+          <td>{{ h.subject }}</td>
+          <td>{{ h.value }}</td>
+          <td>{{ h.date | date:'shortDate' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
