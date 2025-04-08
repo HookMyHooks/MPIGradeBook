@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -22,8 +27,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatProgressSpinnerModule
-  ]
+    MatProgressSpinnerModule,
+  ],
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -31,13 +36,13 @@ export class LoginComponent {
   isLoading: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+    private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      userPassword: ['', Validators.required]
+      userPassword: ['', Validators.required],
     });
   }
 
@@ -54,20 +59,21 @@ export class LoginComponent {
     this.authService.login(email, userPassword).subscribe({
       next: () => {
         if (this.authService.isStudent()) {
-          this.router.navigate(['/student/dashboard']);
+          this.router.navigate(['/student-dashboard']);
         } else if (this.authService.isTeacher()) {
-          this.router.navigate(['/teacher/dashboard']);
+          this.router.navigate(['/teacher-dashboard']);
         } else {
           this.router.navigate(['/']);
         }
       },
       error: (err) => {
-        this.errorMessage = err.error?.message || 'Login failed. Please try again.';
+        this.errorMessage =
+          err.error?.message || 'Login failed. Please try again.';
         this.isLoading = false;
       },
       complete: () => {
         this.isLoading = false;
-      }
+      },
     });
   }
 }
