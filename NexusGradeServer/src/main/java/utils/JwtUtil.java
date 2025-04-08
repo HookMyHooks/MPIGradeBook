@@ -12,9 +12,10 @@ public class JwtUtil {
     private static final String SECRET_KEY = "your-256-bit-secret-which-is-at-least-32-bytes!";
     private static final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
-    public static String generateToken(String username) {
+    public static String generateToken(String username, String role) {
         return Jwts.builder()
                 .subject(username)
+                .claim("role", role)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
                 .signWith(key, SignatureAlgorithm.HS256)

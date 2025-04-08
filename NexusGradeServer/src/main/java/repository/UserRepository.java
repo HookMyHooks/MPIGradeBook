@@ -30,6 +30,12 @@ public class UserRepository {
         em.remove(user);
     }
 
+    public boolean isStudent(int userId) {
+        return this.findById(userId) != null;
+    }
+    public boolean isTeacher(int userId) {
+        return this.findById(userId) != null;
+    }
 
 
     public User findByUsername(String username) {
