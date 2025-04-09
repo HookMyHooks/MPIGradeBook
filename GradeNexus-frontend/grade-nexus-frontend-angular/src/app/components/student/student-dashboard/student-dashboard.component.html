@@ -1,19 +1,21 @@
-<section class="student-dashboard">
-    <h2>Bun venit, Bianca!</h2>
-  
-    <div class="average-box">
-      <h3>Media generală:</h3>
-      <p class="average">9.4</p>
-    </div>
-  
-    <h3>Notele tale:</h3>
-    <div class="grades-list">
-      <div class="grade-item" *ngFor="let grade of grades">
-        <p><strong>Materie:</strong> {{ grade.subject }}</p>
-        <p><strong>Profesor:</strong> {{ grade.teacher }}</p>
-        <p><strong>Notă:</strong> {{ grade.value }}</p>
-        <p><strong>Data:</strong> {{ grade.date | date }}</p>
-      </div>
-    </div>
-  </section>
-  
+<div class="student-dashboard">
+  <h1>Student Dashboard</h1>
+
+  <app-average [grades]="grades"></app-average>
+
+  <app-grade-list [grades]="grades"></app-grade-list>
+
+  <h3>Grade Details</h3>
+  <ul>
+    <li *ngFor="let g of grades; let i = index">
+      <button (click)="selectGrade(i)">
+        {{ g.subject }} ({{ g.value }})
+      </button>
+    </li>
+  </ul>
+
+  <app-grade-item *ngIf="selectedGradeIndex !== null"
+    [grade]="grades[selectedGradeIndex]"></app-grade-item>
+
+  <button *ngIf="selectedGradeIndex !== null" (click)="clearSelection()">Hide Details.</button>
+</div>

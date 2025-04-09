@@ -1,0 +1,64 @@
+.grade-list-container {
+    max-width: 60vh;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #f5f5ff;
+    border-radius: 1.6vh;
+    box-shadow: 0 0.4vh 1.5vh rgba(123, 104, 238, 0.25);
+  
+    h2 {
+      text-align: center;
+      color: #6a5acd;
+      margin-bottom: 1rem;
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+  
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        background: #e6e6fa;
+        border-radius: 1vh;
+  
+        span {
+          flex: 1;
+        }
+  
+        input {
+          width: 6vh;
+          margin: 0 0.5rem;
+          padding: 0.5rem;
+          border: 0.1vh solid #87cefa;
+          border-radius: 0.8vh;
+          text-align: center;
+        }
+  
+        button {
+          border: none;
+          background-color: transparent;
+          font-size: 1.2rem;
+          cursor: pointer;
+          margin-left: 0.5vh;
+          transition: transform 0.2s ease;
+  
+          &:hover {
+            transform: scale(1.2);
+          }
+  
+          &:first-of-type {
+            color: #4caf50;
+          }
+  
+          &:last-of-type {
+            color: #e53935;
+          }
+        }
+      }
+    }
+  }
+  

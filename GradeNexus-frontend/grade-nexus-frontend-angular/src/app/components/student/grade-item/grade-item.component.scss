@@ -1,0 +1,24 @@
+.grade-item {
+    max-width: 40vh;
+    margin: 2rem auto;
+    background: #e6e6fa;
+    padding: 1.5rem;
+    border-radius: 1.6vh;
+    border: 0.1vh solid #ccc;
+    box-shadow: 0 0.3vh 1vh rgba(106, 90, 205, 0.2);
+  
+    h3 {
+      margin-top: 0;
+      color: #6a5acd;
+    }
+  
+    p {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+  
+      strong {
+        color: #7b68ee;
+      }
+    }
+  }
+  

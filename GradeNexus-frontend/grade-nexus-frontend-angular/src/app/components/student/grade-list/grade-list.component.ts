@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-grade-list',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './grade-list.component.html',
-  styleUrl: './grade-list.component.scss'
+  styleUrls: ['./grade-list.component.scss'],
 })
 export class GradeListComponent {
-
+  @Input() grades: { subject: string; teacher: string; value: number; date: Date }[] = [];
 }

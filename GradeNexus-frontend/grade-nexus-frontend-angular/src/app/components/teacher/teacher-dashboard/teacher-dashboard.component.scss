@@ -1,85 +1,43 @@
-.teacher-dashboard {
-    padding: 2rem 3rem;
-    background-color: #ade79f;;
-    min-height: 100vh;
-  
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: #2c3e50;
-    }
-  
-    .grade-form {
-      background-color: #ffffff;
-      padding: 1.5rem;
+.dashboard-container {
+  max-width: 90vh;
+  margin: auto;
+  padding: 2rem;
+
+  h1 {
+    text-align: center;
+    color: #6a5acd;
+    margin-bottom: 2rem;
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
       border-radius: 1.2vh;
-      box-shadow: 0 0.2vh 0.8vh rgba(0, 0, 0, 0.05);
-      display: grid;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-  
-      input {
-        padding: 0.75rem;
-        border: 0.1vh solid #ccc;
-        border-radius: 0.8vh;
-        font-size: 1rem;
-        transition: border-color 0.2s;
-  
-        &:focus {
-          border-color: #3498db;
-          outline: none;
-        }
-      }
-  
-      button {
-        padding: 0.75rem;
-        background: linear-gradient(to right, #2ecc71, #27ae60);
+      background-color: #e6e6fa;
+      color: #6a5acd;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+
+      &.active {
+        background-color: #6a5acd;
         color: white;
-        border: none;
-        border-radius: 0.8vh;
-        font-weight: bold;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background 0.3s ease;
-  
-        &:hover {
-          background: linear-gradient(to right, #27ae60, #229954);
-        }
       }
-    }
-  
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #34495e;
-    }
-  
-    .grades-list {
-      display: grid;
-      gap: 1rem;
-  
-      .grade-item {
-        background: #ffffff;
-        padding: 1.25rem;
-        border: 0.1vh solid #e0e0e0;
-        border-radius: 1vh;
-        box-shadow: 0 0.2vh 1vh rgba(0, 0, 0, 0.04);
-        transition: transform 0.2s ease;
-  
-        &:hover {
-          transform: translateY(-3px);
-        }
-  
-        p {
-          margin: 0.25rem 0;
-          font-size: 1rem;
-          color: #2d3436;
-  
-          strong {
-            color: #636e72;
-          }
-        }
+
+      &:hover:not(.active) {
+        background-color: #dcd0ff;
       }
     }
   }
-  
+
+  .view-container {
+    border-top: 0.2vh solid #eee;
+    padding-top: 2rem;
+  }
+}

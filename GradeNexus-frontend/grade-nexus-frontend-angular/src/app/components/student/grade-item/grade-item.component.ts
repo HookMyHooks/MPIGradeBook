@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-grade-item',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './grade-item.component.html',
-  styleUrl: './grade-item.component.scss'
+  styleUrls: ['./grade-item.component.scss'],
 })
 export class GradeItemComponent {
-
+  @Input() grade: { subject: string; teacher: string; value: number; date: Date } | null = null;
 }
