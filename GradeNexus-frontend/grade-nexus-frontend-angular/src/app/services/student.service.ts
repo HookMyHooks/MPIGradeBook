@@ -7,7 +7,7 @@ import { Student } from '../dtos/student';
   providedIn: 'root',
 })
 export class StudentService {
-  private readonly baseUrl = 'http://localhost:8080/students';
+  private readonly baseUrl = 'http://localhost:8189/students';
 
   constructor(private readonly http: HttpClient) {}
 
