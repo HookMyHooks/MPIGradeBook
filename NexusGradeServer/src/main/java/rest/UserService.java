@@ -37,16 +37,20 @@ public class UserService {
     }
 
 
-    public String login(String username, String password) {
-        User user = userRepo.findByUsername(username);
+    public String login(String email, String password) {
+        User user = userRepo.findByEmail(email);
+        System.out.println("User from DB: " + user.getEmail());
 
 
-            String role = userRepo.isStudent(user.getId()) ? "STUDENT" :
+        System.out.println("Provided: " + password);
+        System.out.println("Stored: " + user.getPassword());
+
+        String role = userRepo.isStudent(user.getId()) ? "STUDENT" :
                     userRepo.isTeacher(user.getId()) ? "TEACHER" :
                             "USER";
 
             if (user != null && user.getPassword().equals(password)) {
-                String token = JwtUtil.generateToken(username,role);
+                String token = JwtUtil.generateToken(user.getUsername(),role);
 
                 
             return "{\"token\": \"" + token + "\", \"role\": \"" + role + "\"}";

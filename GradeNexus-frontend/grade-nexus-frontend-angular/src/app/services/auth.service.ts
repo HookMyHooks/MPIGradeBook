@@ -27,7 +27,7 @@ export interface RegisterRequest {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = 'http://localhost:5432/api/auth'; 
+  private readonly API_URL = 'http://localhost:8189/api/users'; 
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
 
@@ -47,12 +47,27 @@ export class AuthService {
       `${this.API_URL}/login`,
       { email, password }
     ).pipe(
-      tap(({ token }) => {
+      tap(({ token, role }) => {
         this.tokenService.setToken(token);
+  
+        const payload = this.tokenService.getPayload();
+  
+        const user: User = {
+          id: 0,
+          email,
+          username: payload?.sub,
+          authToken: token,
+          role: role as 'STUDENT' | 'TEACHER',
+          student: role === 'STUDENT' ? {} : undefined,
+          teacher: role === 'TEACHER' ? {} : undefined,
+        };
+  
+        this.currentUserSubject.next(user);
       }),
       catchError(this.handleError)
     );
   }
+  
   
   
 
@@ -64,6 +79,8 @@ export class AuthService {
       tap(({ token, role }) => {
         // Save the token to localStorage using your TokenService
         this.tokenService.setToken(token);
+        console.log(token);
+        console.log(role);
   
         // Decode JWT payload to get additional info 
         const payload = this.tokenService.getPayload();

@@ -27,10 +27,5 @@ public class User {
     @Column(name = "username", nullable = false)
     private String username;
 
-    @OneToOne
-    private Student student;
-
-    @OneToOne
-    private Teacher teacher;
 
 }

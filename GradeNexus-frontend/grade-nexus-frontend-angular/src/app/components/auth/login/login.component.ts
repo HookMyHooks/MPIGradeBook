@@ -42,7 +42,7 @@ export class LoginComponent {
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      userPassword: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
 
@@ -54,11 +54,13 @@ export class LoginComponent {
     this.isLoading = true;
     this.errorMessage = '';
 
-    const { email, userPassword } = this.loginForm.value;
+    const { email, password } = this.loginForm.value;
 
-    this.authService.login(email, userPassword).subscribe({
+    this.authService.login(email, password).subscribe({
       next: () => {
+        console.log(email,password)
         if (this.authService.isStudent()) {
+          console.log("is student")
           this.router.navigate(['/student-dashboard']);
         } else if (this.authService.isTeacher()) {
           this.router.navigate(['/teacher-dashboard']);

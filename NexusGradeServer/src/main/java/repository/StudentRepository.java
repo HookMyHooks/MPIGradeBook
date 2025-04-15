@@ -3,6 +3,7 @@ package repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import model.Student;
+import utils.JPAUtil;
 
 import java.util.List;
 
@@ -10,6 +11,10 @@ public class StudentRepository {
     @PersistenceContext
     private EntityManager em;
 
+    public StudentRepository()
+    {
+        this.em = JPAUtil.getEntityManager();
+    }
     public Student findById(int id) {
         return em.find(Student.class, id);
     }
