@@ -3,6 +3,7 @@ package repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import model.Subject;
+import utils.JPAUtil;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class SubjectRepository {
     @PersistenceContext
     private EntityManager em;
 
+    public SubjectRepository() {this.em = JPAUtil.getEntityManager();}
     public Subject findById(int id) {
         return em.find(Subject.class, id);
     }
