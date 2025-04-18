@@ -7,7 +7,7 @@ import { Grade } from '../dtos/grade';
   providedIn: 'root',
 })
 export class GradeService {
-  private readonly baseUrl = 'http://localhost:8189/grades';
+  private readonly baseUrl = 'http://localhost:8189/api/grades';
 
   constructor(private readonly http: HttpClient) {}
 
