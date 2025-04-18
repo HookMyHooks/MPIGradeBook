@@ -1,6 +1,8 @@
 package resource;
+import dto.LoginRequestDTO;
 import dto.RegisterRequestDTO;
 import dto.UserDTO;
+import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -8,13 +10,19 @@ import repository.StudentRepository;
 import repository.TeacherRepository;
 import repository.UserRepository;
 import rest.UserService;
+import utils.JPAUtil;
 import utils.JwtUtil;
 
 import java.util.List;
 
 @Path("/users")
 public class UserResource {
-    private final UserService service = new UserService(new UserRepository(),new StudentRepository(), new TeacherRepository());
+    EntityManager em = JPAUtil.getEntityManager();
+    UserRepository userRepo = new UserRepository();
+    StudentRepository studentRepo = new StudentRepository();
+    TeacherRepository teacherRepo = new TeacherRepository();
+
+    private final UserService service = new UserService(userRepo, studentRepo, teacherRepo);
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -34,13 +42,15 @@ public class UserResource {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(UserDTO dto) {
-        String responseJson = service.login(dto.getUsername(), dto.getPassword());
+    public Response login(LoginRequestDTO dto) {
+        String responseJson = service.login(dto.getEmail(), dto.getPassword());
+        System.out.println(responseJson);
         if (responseJson == null) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials").build();
         }
         return Response.ok().entity(responseJson).build();
     }
+
 
 
     @POST

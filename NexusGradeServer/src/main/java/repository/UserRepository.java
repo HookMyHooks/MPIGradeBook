@@ -4,11 +4,19 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import model.Student;
 import model.User;
+import resource.UserResource;
+import utils.JPAUtil;
 
 import java.util.List;
 public class UserRepository {
     @PersistenceContext
     private EntityManager em;
+
+    public UserRepository()
+    {
+        this.em = JPAUtil.getEntityManager();
+    }
+
 
     public User findById(int id) {
         return em.find(User.class, id);
@@ -18,9 +26,21 @@ public class UserRepository {
         return em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
-    public void save(User user) {
-        em.persist(user);
+
+    public User findByEmail(String email) {
+        try {
+            return em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                    .setParameter("email", email).getSingleResult();
+        }catch (NoResultException e) {
+            return null;
+        }
     }
+    public void save(User user) {
+        em.getTransaction().begin();
+        em.persist(user);
+        em.getTransaction().commit(); // ← ensure the data is committed
+    }
+
 
     public void update(User user) {
         em.merge(user);
