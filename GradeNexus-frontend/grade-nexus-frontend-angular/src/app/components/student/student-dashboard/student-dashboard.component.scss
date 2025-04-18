@@ -59,3 +59,22 @@
     }
   }
 }
+
+.logout-button {
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+
+  padding: 0.5rem 1rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #b02a37;
+  }
+}
