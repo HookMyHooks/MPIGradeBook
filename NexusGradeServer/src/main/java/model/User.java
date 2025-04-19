@@ -27,5 +27,9 @@ public class User {
     @Column(name = "username", nullable = false)
     private String username;
 
+    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Student student;
 
+    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Teacher teacher;
 }

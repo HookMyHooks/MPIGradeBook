@@ -1,5 +1,6 @@
 package repository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import model.Student;
@@ -35,15 +36,26 @@ public class UserRepository {
             return null;
         }
     }
+
     public void save(User user) {
-        em.getTransaction().begin();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
         em.persist(user);
-        em.getTransaction().commit(); // ← ensure the data is committed
+        tx.commit();
     }
 
-
     public void update(User user) {
-        em.merge(user);
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(user);
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public void delete(User user) {

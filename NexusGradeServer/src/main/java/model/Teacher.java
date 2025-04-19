@@ -17,13 +17,21 @@ import lombok.NoArgsConstructor;
 @Table(name = "teachers")
 public class Teacher {
     @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "teachers_id_gen"
+    )
+    @SequenceGenerator(
+            name = "teachers_id_gen",
+            sequenceName = "\"teachers_teacherId_seq\"",
+            allocationSize = 1
+    )
     @Column(name = "\"teacherId\"", nullable = false)
     private Integer id;
 
-    @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "\"teacherId\"", nullable = false)
-    private model.User users;
+    @JoinColumn(name = "\"userId\"", nullable = false)
+    private User users;
 
     @Column(name = "firstname", nullable = false, length = Integer.MAX_VALUE)
     private String firstName;

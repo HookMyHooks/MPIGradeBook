@@ -134,7 +134,17 @@ export class AuthService {
   }
 
   private handleError(error: any) {
-    const message = error.error?.message ?? 'Something went wrong';
+    const message =
+      error.error?.message ?? error.error ?? 'Something went wrong';
     return throwError(() => new Error(message));
+  }
+
+  resetPassword(email: string, password: string): Observable<boolean> {
+    return this.http
+      .post<boolean>(`${this.API_URL}/reset-password`, {
+        email,
+        password,
+      })
+      .pipe(catchError(this.handleError));
   }
 }

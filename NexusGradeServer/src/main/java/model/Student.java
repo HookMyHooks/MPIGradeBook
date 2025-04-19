@@ -18,13 +18,21 @@ import lombok.NoArgsConstructor;
 @Table(name = "students")
 public class Student {
     @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "students_id_gen"
+    )
+    @SequenceGenerator(
+            name = "students_id_gen",
+            sequenceName = "students_studentid_seq",
+            allocationSize = 1
+    )
     @Column(name = "studentid", nullable = false)
     private Integer id;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "studentid", nullable = false)
-    private model.User users;
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "\"userId\"", nullable = false)
+    private User users;
 
     @Column(name = "first_name", nullable = false, length = Integer.MAX_VALUE)
     private String firstName;
@@ -34,7 +42,4 @@ public class Student {
 
     @OneToMany(mappedBy = "student")
     private Set<Grade> grades = new LinkedHashSet<>();
-
-
-
 }

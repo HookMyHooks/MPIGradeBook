@@ -1,58 +1,83 @@
 <div class="register-container">
-    <h2 class="title">Create an Account</h2>
-  
-    <div class="role-selector">
-      <button type="button" [class.active]="registerForm.value.role === 'STUDENT'"
-              (click)="registerForm.patchValue({role: 'STUDENT'})">
-        Student
-      </button>
-      <button type="button" [class.active]="registerForm.value.role === 'TEACHER'"
-              (click)="registerForm.patchValue({role: 'TEACHER'})">
-        Teacher
-      </button>
-    </div>
-  
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
-      <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" formControlName="firstName">
-      </div>
-  
-      <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" formControlName="lastName">
-      </div>
-  
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" formControlName="email">
-        <div class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-          Please enter a valid email
-        </div>
-      </div>
-  
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" formControlName="userPassword">
-        <div class="error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-          Minimum 6 characters
-        </div>
-      </div>
-  
-      <div class="form-group remember-checkbox">
-        <label>
-          <input type="checkbox" formControlName="rememberMe">
-          Remember me
-        </label>
-      </div>
-  
-      <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
-      </div>
-  
-      <button type="submit" class="register-button" [disabled]="registerForm.invalid">
-        Register
-      </button>
-    </form>
+  <h2 class="title">Create an Account</h2>
+
+  <div class="role-selector">
+    <button
+      type="button"
+      [class.active]="registerForm.value.role === 'STUDENT'"
+      (click)="registerForm.patchValue({ role: 'STUDENT' })"
+    >
+      Student
+    </button>
+    <button
+      type="button"
+      [class.active]="registerForm.value.role === 'TEACHER'"
+      (click)="registerForm.patchValue({ role: 'TEACHER' })"
+    >
+      Teacher
+    </button>
   </div>
-  
+
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+    class="register-form"
+  >
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" formControlName="username" />
+    </div>
+
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" formControlName="firstName" />
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" formControlName="lastName" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" formControlName="email" />
+      <div
+        class="error-message"
+        *ngIf="
+          registerForm.get('email')?.invalid &&
+          registerForm.get('email')?.touched
+        "
+      >
+        Please enter a valid email
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="userPassword" />
+      <div
+        class="error-message"
+        *ngIf="
+          registerForm.get('password')?.invalid &&
+          registerForm.get('password')?.touched
+        "
+      >
+        Minimum 6 characters
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <button
+      type="submit"
+      class="register-button"
+      [disabled]="registerForm.invalid"
+    >
+      Register
+    </button>
+
+    <a class="back-to-login" routerLink="/login"> Back to Login </a>
+  </form>
+</div>
