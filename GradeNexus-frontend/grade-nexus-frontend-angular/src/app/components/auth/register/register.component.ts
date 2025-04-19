@@ -33,6 +33,7 @@ export class RegisterComponent {
       role: ['STUDENT', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      username: ['', Validators.required],
     });
   }
 

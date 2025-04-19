@@ -36,12 +36,13 @@ public class UserRepository {
             return null;
         }
     }
-    public void save(User user) {
-        em.getTransaction().begin();
-        em.persist(user);
-        em.getTransaction().commit(); // ← ensure the data is committed
-    }
 
+    public void save(User user) {
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        em.persist(user);
+        tx.commit();
+    }
 
     public void update(User user) {
         EntityTransaction tx = em.getTransaction();
