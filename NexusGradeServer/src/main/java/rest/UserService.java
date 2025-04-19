@@ -1,5 +1,6 @@
 package rest;
 
+import dto.LoginRequestDTO;
 import dto.RegisterRequestDTO;
 import dto.UserDTO;
 import mapper.UserMapper;
@@ -34,6 +35,10 @@ public class UserService {
 
     public List<UserDTO> getAll() {
         return userRepo.findAll().stream().map(UserMapper::toDTO).toList();
+    }
+
+    public UserDTO getByEmail(String email) {
+        return UserMapper.toDTO(userRepo.findByEmail(email));
     }
 
 
@@ -85,6 +90,17 @@ public class UserService {
         }
 
         return true;
+    }
+
+
+    public boolean resetPassword(LoginRequestDTO dto)
+    {
+        User user = userRepo.findByEmail(dto.getEmail());
+        if (user == null) return false;
+        user.setPassword(dto.getPassword());
+        userRepo.update(user);
+        return true;
+
     }
 
 }

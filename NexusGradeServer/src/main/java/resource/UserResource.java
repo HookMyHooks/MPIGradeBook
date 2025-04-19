@@ -67,5 +67,19 @@ public class UserResource {
         }
     }
 
+    @POST
+    @Path("/reset-password")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response resetPassword(LoginRequestDTO dto) {
+        boolean success = service.resetPassword(dto);
+        if (success) {
+            //send true if the reset succeeded
+            return Response.ok(success).build();
+        }
+        else
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid email").build();
+    }
+
 
 }
