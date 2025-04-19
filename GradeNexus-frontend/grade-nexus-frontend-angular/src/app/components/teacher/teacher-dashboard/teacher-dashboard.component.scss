@@ -23,7 +23,7 @@
       color: #6a5acd;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background-color 0.3s;
 
       &.active {
         background-color: #6a5acd;
@@ -39,5 +39,28 @@
   .view-container {
     border-top: 0.2vh solid #eee;
     padding-top: 2rem;
+  }
+}
+
+.logout-button {
+  margin: 1rem auto;
+  padding: 0.75rem 1.5rem;
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+
+  display: block;
+  border: none;
+  border-radius: 1.2vh;
+
+  background: #6a5acd;
+  color: white;
+  transition: background-color 0.3s;
+
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #7b68ee;
   }
 }

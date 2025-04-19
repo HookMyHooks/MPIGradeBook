@@ -1,6 +1,7 @@
 package repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import model.Student;
 import utils.JPAUtil;
@@ -11,10 +12,10 @@ public class StudentRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public StudentRepository()
-    {
+    public StudentRepository() {
         this.em = JPAUtil.getEntityManager();
     }
+
     public Student findById(int id) {
         return em.find(Student.class, id);
     }
@@ -33,5 +34,16 @@ public class StudentRepository {
 
     public void delete(Student student) {
         em.remove(student);
+    }
+
+    public Student findByUserId(int userId) {
+        try {
+            return em.createQuery(
+                    "SELECT s FROM Student s WHERE s.users.id = :uid", Student.class)
+                    .setParameter("uid", userId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

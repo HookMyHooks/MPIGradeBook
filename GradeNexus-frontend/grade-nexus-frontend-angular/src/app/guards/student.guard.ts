@@ -10,6 +10,6 @@ export const StudentGuard: CanActivateFn = (route, state) => {
     return true;
   }
 
-  router.navigate(['/login']);
+  router.navigate(['/teacher-dashboard']);
   return false;
 };
