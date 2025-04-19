@@ -58,9 +58,9 @@ export class LoginComponent {
 
     this.authService.login(email, password).subscribe({
       next: () => {
-        console.log(email,password)
+        console.log(email, password);
         if (this.authService.isStudent()) {
-          console.log("is student")
+          console.log('is student');
           this.router.navigate(['/student-dashboard']);
         } else if (this.authService.isTeacher()) {
           this.router.navigate(['/teacher-dashboard']);
@@ -70,7 +70,7 @@ export class LoginComponent {
       },
       error: (err) => {
         this.errorMessage =
-          err.error?.message || 'Login failed. Please try again.';
+          err.error?.message ?? 'Login failed. Please try again.';
         this.isLoading = false;
       },
       complete: () => {

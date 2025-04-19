@@ -1,5 +1,6 @@
 package repository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import model.Student;
@@ -43,7 +44,17 @@ public class UserRepository {
 
 
     public void update(User user) {
-        em.merge(user);
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(user);
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public void delete(User user) {

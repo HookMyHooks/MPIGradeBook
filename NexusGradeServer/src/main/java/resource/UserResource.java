@@ -74,12 +74,10 @@ public class UserResource {
     public Response resetPassword(LoginRequestDTO dto) {
         boolean success = service.resetPassword(dto);
         if (success) {
-            //send true if the reset succeeded
-            return Response.ok(success).build();
+            return Response.ok(true).build();
         }
-        else
-            return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid email").build();
+        return Response.status(Response.Status.NOT_FOUND)
+                .entity("Email address not found.")
+                .build();
     }
-
-
 }

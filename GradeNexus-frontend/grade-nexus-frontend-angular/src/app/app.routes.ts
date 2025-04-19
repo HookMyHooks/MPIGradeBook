@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { TeacherGuard } from './guards/teacher.guard';
 import { StudentGuard } from './guards/student.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 
 export const routes: Routes = [
   {
@@ -30,5 +31,9 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
   },
 ];

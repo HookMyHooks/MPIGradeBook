@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -9,11 +14,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule
-  ]
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -22,9 +23,9 @@ export class RegisterComponent {
   roles = ['STUDENT', 'TEACHER'];
 
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+    private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly router: Router
   ) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -32,7 +33,6 @@ export class RegisterComponent {
       role: ['STUDENT', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      rememberMe: [false]
     });
   }
 
@@ -47,12 +47,12 @@ export class RegisterComponent {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        this.errorMessage = err.error?.message || 'Registration failed';
+        this.errorMessage = err.error?.message ?? 'Registration failed';
         this.isLoading = false;
       },
       complete: () => {
         this.isLoading = false;
-      }
+      },
     });
   }
 }
