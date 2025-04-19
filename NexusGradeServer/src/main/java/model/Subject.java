@@ -28,12 +28,9 @@ public class Subject {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacherid")
-    private model.Teacher teacherid;
+    @JoinColumn(name = "\"teacherId\"")
+    private Teacher teacherId;
 
     @OneToMany(mappedBy = "subject")
     private Set<Grade> grades = new LinkedHashSet<>();
-
-
-
 }

@@ -8,7 +8,7 @@ public class SubjectMapper {
         SubjectDTO dto = new SubjectDTO();
         dto.setId(subject.getId());
         dto.setName(subject.getName());
-        dto.setTeacherId(subject.getTeacherid() != null ? subject.getTeacherid().getId() : null);
+        dto.setTeacherId(subject.getTeacherId() != null ? subject.getTeacherId().getId() : null);
         return dto;
     }
 }
