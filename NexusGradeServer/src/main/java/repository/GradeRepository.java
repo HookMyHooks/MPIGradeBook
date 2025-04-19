@@ -3,6 +3,7 @@ package repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import model.Grade;
+import utils.JPAUtil;
 
 import java.util.List;
 
@@ -10,6 +11,10 @@ public class GradeRepository {
     @PersistenceContext
     private EntityManager em;
 
+    public GradeRepository()
+    {
+        this.em = JPAUtil.getEntityManager();
+    }
     public Grade findById(int id) {
         return em.find(Grade.class, id);
     }
