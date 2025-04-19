@@ -3,104 +3,114 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TokenService } from './token/token.service';
-
-export interface User {
-  id: number;
-  email: string;
-  username: string;
-  student?: any;
-  teacher?: any;
-  authToken: string;
-  role: 'STUDENT' | 'TEACHER';
-}
-
-export interface RegisterRequest {
-  email: string;
-  userPassword: string;
-  username: string;
-  role: string;
-  firstName: string;
-  lastName: string;
-}
+import { User } from '../dtos/user';
+import { RegisterRequest } from '../dtos/register-request';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private readonly API_URL = 'http://localhost:8189/api/users'; 
-  private currentUserSubject: BehaviorSubject<User | null>;
-  public currentUser: Observable<User | null>;
+  private readonly API_URL = 'http://localhost:8189/api/users';
+  private readonly currentUserSubject = new BehaviorSubject<User | null>(null);
+  public currentUser: Observable<User | null> =
+    this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient, private tokenService:TokenService) {
-    this.currentUserSubject = new BehaviorSubject<User | null>(
-      JSON.parse(localStorage.getItem('currentUser') || 'null')
-    );
-    this.currentUser = this.currentUserSubject.asObservable();
+  constructor(
+    private readonly http: HttpClient,
+    private readonly tokenService: TokenService
+  ) {
+    this.restoreUserFromToken();
   }
 
   public get currentUserValue(): User | null {
     return this.currentUserSubject.value;
   }
 
-  login(email: string, password: string): Observable<any> {
-    return this.http.post<{ token: string, role: string }>(
-      `${this.API_URL}/login`,
-      { email, password }
-    ).pipe(
-      tap(({ token, role }) => {
-        this.tokenService.setToken(token);
-  
-        const payload = this.tokenService.getPayload();
-  
-        const user: User = {
-          id: 0,
-          email,
-          username: payload?.sub,
-          authToken: token,
-          role: role as 'STUDENT' | 'TEACHER',
-          student: role === 'STUDENT' ? {} : undefined,
-          teacher: role === 'TEACHER' ? {} : undefined,
-        };
-  
-        this.currentUserSubject.next(user);
-      }),
-      catchError(this.handleError)
-    );
-  }
-  
-  
-  
+  private buildUserFromToken(): User | null {
+    const token = this.tokenService.getToken();
+    const payload = this.tokenService.getPayload();
 
-  register(registerData: RegisterRequest): Observable<{token:string,role: 'STUDENT' | 'TEACHER'}> {
-    return this.http.post<{ token: string; role: 'STUDENT' | 'TEACHER' }>(
-      `${this.API_URL}/register`,
-      registerData
-    ).pipe(
-      tap(({ token, role }) => {
-        // Save the token to localStorage using your TokenService
-        this.tokenService.setToken(token);
-        console.log(token);
-        console.log(role);
-  
-        // Decode JWT payload to get additional info 
-        const payload = this.tokenService.getPayload();
-  
-        const user: User = {
-          id: 0, // Optional unless fetched later
-          email: registerData.email,
-          username: payload?.sub,
-          authToken: token,
-          role: role,
-          student: role === 'STUDENT' ? {} : undefined,
-          teacher: role === 'TEACHER' ? {} : undefined
-        };
-  
-        this.currentUserSubject.next(user);
-      }),
-      catchError(this.handleError)
-    );
+    if (!token || !payload) return null;
+
+    return {
+      id: 0,
+      email: payload.email ?? '',
+      username: payload.sub ?? '',
+      authToken: token,
+      role: payload.role,
+      student: payload.role === 'STUDENT' ? {} : undefined,
+      teacher: payload.role === 'TEACHER' ? {} : undefined,
+    };
   }
-  
+
+  private restoreUserFromToken(): void {
+    if (this.tokenService.isTokenValid()) {
+      const user = this.buildUserFromToken();
+      this.currentUserSubject.next(user);
+    } else {
+      this.currentUserSubject.next(null);
+    }
+  }
+
+  login(email: string, password: string): Observable<any> {
+    return this.http
+      .post<{ token: string; role: string }>(`${this.API_URL}/login`, {
+        email,
+        password,
+      })
+      .pipe(
+        tap(({ token, role }) => {
+          this.tokenService.setToken(token);
+
+          const payload = this.tokenService.getPayload();
+
+          const user: User = {
+            id: 0,
+            email,
+            username: payload?.sub,
+            authToken: token,
+            role: role as 'STUDENT' | 'TEACHER',
+            student: role === 'STUDENT' ? {} : undefined,
+            teacher: role === 'TEACHER' ? {} : undefined,
+          };
+
+          this.currentUserSubject.next(user);
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  register(
+    registerData: RegisterRequest
+  ): Observable<{ token: string; role: 'STUDENT' | 'TEACHER' }> {
+    return this.http
+      .post<{ token: string; role: 'STUDENT' | 'TEACHER' }>(
+        `${this.API_URL}/register`,
+        registerData
+      )
+      .pipe(
+        tap(({ token, role }) => {
+          this.tokenService.setToken(token);
+          console.log(token);
+          console.log(role);
+
+          const payload = this.tokenService.getPayload();
+
+          const user: User = {
+            id: 0,
+            email: registerData.email,
+            username: payload?.sub,
+            authToken: token,
+            role: role,
+            student: role === 'STUDENT' ? {} : undefined,
+            teacher: role === 'TEACHER' ? {} : undefined,
+          };
+
+          this.currentUserSubject.next(user);
+        }),
+        catchError(this.handleError)
+      );
+  }
 
   logout(): void {
     this.tokenService.logout();
@@ -120,11 +130,11 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return this.currentUserValue?.authToken || null;
+    return this.currentUserValue?.authToken ?? null;
   }
 
   private handleError(error: any) {
-    const message = error.error?.message || 'Something went wrong';
+    const message = error.error?.message ?? 'Something went wrong';
     return throwError(() => new Error(message));
   }
 }

@@ -1,4 +1,6 @@
 <div class="student-dashboard">
+  <button class="logout-button" (click)="logout()">Log out</button>
+
   <h1>Student Dashboard</h1>
 
   <app-average [grades]="grades"></app-average>
@@ -8,14 +10,16 @@
   <h3>Grade Details</h3>
   <ul>
     <li *ngFor="let g of grades; let i = index">
-      <button (click)="selectGrade(i)">
-        {{ g.subject }} ({{ g.value }})
-      </button>
+      <button (click)="selectGrade(i)">{{ g.subject }} ({{ g.value }})</button>
     </li>
   </ul>
 
-  <app-grade-item *ngIf="selectedGradeIndex !== null"
-    [grade]="grades[selectedGradeIndex]"></app-grade-item>
+  <app-grade-item
+    *ngIf="selectedGradeIndex !== null"
+    [grade]="grades[selectedGradeIndex]"
+  ></app-grade-item>
 
-  <button *ngIf="selectedGradeIndex !== null" (click)="clearSelection()">Hide Details.</button>
+  <button *ngIf="selectedGradeIndex !== null" (click)="clearSelection()">
+    Hide Details.
+  </button>
 </div>
