@@ -17,21 +17,20 @@ import lombok.NoArgsConstructor;
 @Table(name = "teachers")
 public class Teacher {
     @Id
-    @Column(name = "teacherid", nullable = false)
+    @Column(name = "\"teacherId\"", nullable = false)
     private Integer id;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "teacherid", nullable = false)
+    @JoinColumn(name = "\"teacherId\"", nullable = false)
     private model.User users;
 
-    @Column(name = "first_name", nullable = false, length = Integer.MAX_VALUE)
+    @Column(name = "firstname", nullable = false, length = Integer.MAX_VALUE)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = Integer.MAX_VALUE)
+    @Column(name = "lastname", nullable = false, length = Integer.MAX_VALUE)
     private String lastName;
 
-    @OneToMany(mappedBy = "teacherid")
+    @OneToMany(mappedBy = "teacherId")
     private Set<Subject> subjects = new LinkedHashSet<>();
-
 }

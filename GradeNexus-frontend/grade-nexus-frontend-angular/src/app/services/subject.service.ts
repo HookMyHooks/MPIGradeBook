@@ -7,7 +7,7 @@ import { Subject } from '../dtos/subject';
   providedIn: 'root',
 })
 export class SubjectService {
-  private readonly baseUrl = 'http://localhost:8189/subjects'; 
+  private readonly baseUrl = 'http://localhost:8189/api/subjects'; 
 
   constructor(private readonly http: HttpClient) {}
 
