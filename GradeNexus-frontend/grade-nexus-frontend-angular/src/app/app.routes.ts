@@ -7,6 +7,7 @@ import { TeacherGuard } from './guards/teacher.guard';
 import { StudentGuard } from './guards/student.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
+import { BulkUploadComponent } from './components/bulk-upload/bulk-upload.component';
 
 export const routes: Routes = [
   {
@@ -36,4 +37,8 @@ export const routes: Routes = [
     path: 'reset-password',
     component: ResetPasswordComponent,
   },
+  {
+    path: 'upload-bulk',
+    component: BulkUploadComponent
+  }
 ];
