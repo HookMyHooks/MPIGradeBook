@@ -21,14 +21,23 @@ public class SubjectRepository {
     }
 
     public void save(Subject subject) {
+        em.getTransaction().begin();
         em.persist(subject);
+        em.getTransaction().commit();
     }
 
     public void update(Subject subject) {
+        em.getTransaction().begin();
         em.merge(subject);
+        em.getTransaction().commit();
     }
 
-    public void delete(Subject subject) {
-        em.remove(subject);
+    public void deleteById(int id) {
+        em.getTransaction().begin();
+        Subject subject = em.find(Subject.class, id);
+        if (subject != null) {
+            em.remove(subject);
+        }
+        em.getTransaction().commit();
     }
 }
