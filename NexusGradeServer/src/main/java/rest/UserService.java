@@ -71,24 +71,22 @@ public class UserService {
         user.setUsername(dto.getUsername());
         user.setPassword(dto.getUserPassword());
         user.setEmail(dto.getEmail());
-        userRepo.save(user);
 
         if ("STUDENT".equalsIgnoreCase(dto.getRole())) {
             Student student = new Student();
             student.setUsers(user);
-            student.setId(user.getId()); // assuming @MapsId, this links it
             student.setFirstName(dto.getFirstName());
             student.setLastName(dto.getLastName());
-            studentRepo.save(student);
+            user.setStudent(student);
         } else if ("TEACHER".equalsIgnoreCase(dto.getRole())) {
             Teacher teacher = new Teacher();
             teacher.setUsers(user);
-            teacher.setId(user.getId());
             teacher.setFirstName(dto.getFirstName());
             teacher.setLastName(dto.getLastName());
-            teacherRepo.save(teacher);
+            user.setTeacher(teacher);
         }
 
+        userRepo.save(user);
         return true;
     }
 
