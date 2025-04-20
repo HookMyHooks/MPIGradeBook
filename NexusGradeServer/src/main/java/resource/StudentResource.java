@@ -6,6 +6,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import repository.StudentRepository;
 import rest.StudentService;
 
@@ -26,5 +27,16 @@ public class StudentResource {
     @Produces(MediaType.APPLICATION_JSON)
     public StudentDTO getStudentById(@PathParam("id") int id) {
         return service.getById(id);
+    }
+
+    @GET
+    @Path("/userId/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStudentByUserId(@PathParam("userId") int userId) {
+        StudentDTO studentDTO = service.getByUserId(userId);
+        if (studentDTO == null) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+        return Response.ok(studentDTO).build();
     }
 }
