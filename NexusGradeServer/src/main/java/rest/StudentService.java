@@ -2,6 +2,7 @@ package rest;
 
 import dto.StudentDTO;
 import mapper.StudentMapper;
+import model.Student;
 import repository.StudentRepository;
 
 import java.util.List;
@@ -19,5 +20,10 @@ public class StudentService {
 
     public List<StudentDTO> getAll() {
         return repo.findAll().stream().map(StudentMapper::toDTO).toList();
+    }
+
+    public StudentDTO getByUserId(int userId) {
+        Student student = repo.findByUserId(userId);
+        return student != null ? StudentMapper.toDTO(student) : null;
     }
 }

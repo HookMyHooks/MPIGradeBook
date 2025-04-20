@@ -18,4 +18,8 @@ export class StudentService {
   getStudentById(id: number): Observable<Student> {
     return this.http.get<Student>(`${this.baseUrl}/${id}`);
   }
+
+  getStudentByUserId(userId: number): Observable<Student> {
+    return this.http.get<Student>(`${this.baseUrl}/userId/${userId}`);
+  }
 }
