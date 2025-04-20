@@ -2,11 +2,14 @@ package resource;
 
 import dto.GradeDTO;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import model.Grade;
@@ -36,6 +39,62 @@ public class GradeResource {
         return service.getById(id);
     }
 
+    //adauga nota
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addGrade(GradeDTO dto) {
+        if (dto.getStudentId() == null || dto.getSubjectId() == null || dto.getValue() == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid data").build();
+        }
+
+        Grade grade = new Grade();
+        grade.setValue(dto.getValue());
+        grade.setDate(LocalDate.now());
+
+        grade.setStudent(new StudentRepository().findById(dto.getStudentId()));
+        grade.setSubject(new SubjectRepository().findById(dto.getSubjectId()));
+
+        new GradeRepository().save(grade);
+
+        return Response.ok().entity("Grade created successfully").build();
+    }
+  
+    //update nota
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateGrade(@PathParam("id") int id, GradeDTO dto) {
+        Grade existing = new GradeRepository().findById(id);
+        if (existing == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Grade not found").build();
+        }
+
+        existing.setValue(dto.getValue());
+        existing.setDate(LocalDate.now()); // sau păstrezi data originală
+        existing.setStudent(new StudentRepository().findById(dto.getStudentId()));
+        existing.setSubject(new SubjectRepository().findById(dto.getSubjectId()));
+
+        new GradeRepository().update(existing);
+
+        return Response.ok().entity("Grade updated successfully").build();
+    }
+
+    //sterge nota
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteGrade(@PathParam("id") int id) {
+        Grade existing = new GradeRepository().findById(id);
+        if (existing == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Grade not found").build();
+        }
+
+        new GradeRepository().delete(existing);
+        return Response.ok().entity("Grade deleted successfully").build();
+    }
+  
     @POST
     @Path("/bulk")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -47,7 +106,7 @@ public class GradeResource {
     
         for (GradeDTO dto : grades) {
             if (dto.getStudentId() == null || dto.getSubjectId() == null || dto.getValue() == null) {
-                continue; // Poți adăuga și logare sau returnare de eroare
+                continue;
             }
     
             Grade g = new Grade();
@@ -62,5 +121,4 @@ public class GradeResource {
     
         return Response.ok("Bulk grades uploaded successfully").build();
     }
-    
 }
