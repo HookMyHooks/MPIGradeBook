@@ -1,4 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-snack-bar-container.error-toast {
+  --mdc-snackbar-container-color: #e57373; 
+  --mdc-snackbar-supporting-text-color: #ffffff; 
+  --mat-snack-bar-button-color: #ffebee; 
+  --mdc-snackbar-label-text-color: #ffffff; 
+}
+
+.mat-mdc-snack-bar-container.success-toast {
+  --mdc-snackbar-container-color: #7b68ee;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-snack-bar-button-color: #f5f5ff;
+  --mdc-snackbar-label-text-color: #ffffff;
+}

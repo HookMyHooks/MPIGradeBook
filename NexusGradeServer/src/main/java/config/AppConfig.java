@@ -16,5 +16,6 @@ public class AppConfig extends ResourceConfig {
         register(UserResource.class);
         register(CorsFilter.class);
         register(PreflightResource.class);
+        register(JacksonDateConfig.class);
     }
 }

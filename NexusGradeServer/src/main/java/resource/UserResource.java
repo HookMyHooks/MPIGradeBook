@@ -44,7 +44,6 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(LoginRequestDTO dto) {
         String responseJson = service.login(dto.getEmail(), dto.getPassword());
-        System.out.println(responseJson);
         if (responseJson == null) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials").build();
         }

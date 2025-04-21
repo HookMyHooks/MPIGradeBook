@@ -37,11 +37,8 @@ public class SubjectResource {
     public Response createSubject(SubjectDTO subjectDTO) {
         SubjectDTO created = service.create(subjectDTO);
         if (created == null) {
-            Map<String, String> error = Map.of(
-                    "error", "teacherId invalid or not found"
-            );
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(error)
+                    .entity("TeacherId invalid or not found")
                     .build();
         }
         return Response.status(Response.Status.CREATED)

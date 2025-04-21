@@ -58,9 +58,7 @@ export class LoginComponent {
 
     this.authService.login(email, password).subscribe({
       next: () => {
-        console.log(email, password);
         if (this.authService.isStudent()) {
-          console.log('is student');
           this.router.navigate(['/student-dashboard']);
         } else if (this.authService.isTeacher()) {
           this.router.navigate(['/teacher-dashboard']);

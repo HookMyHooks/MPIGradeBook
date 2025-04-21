@@ -1,0 +1,44 @@
+.bulk-upload-container {
+  max-width: 70vh;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #f5f5ff;
+  border-radius: 1.6vh;
+  box-shadow: 0 0.4vh 1.5vh rgba(135, 206, 250, 0.2);
+
+  text-align: center;
+
+  h2 {
+    text-align: center;
+    color: #6a5acd;
+    margin-bottom: 0.8rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: #666666;
+    margin-bottom: 1.2rem;
+  }
+
+  .upload-btn {
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #7b68ee;
+    border: none;
+    border-radius: 1vh;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.15s ease;
+    margin-top: 0.5rem;
+
+    &:hover {
+      background-color: #6a5acd;
+      transform: translateY(-0.5vh);
+    }
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}

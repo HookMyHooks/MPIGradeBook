@@ -41,10 +41,6 @@ public class UserService {
 
     public String login(String email, String password) {
         User user = userRepo.findByEmail(email);
-        System.out.println("User from DB: " + user.getEmail());
-
-        System.out.println("Provided: " + password);
-        System.out.println("Stored: " + user.getPassword());
 
         String role;
         if (studentRepo.findByUserId(user.getId()) != null) {

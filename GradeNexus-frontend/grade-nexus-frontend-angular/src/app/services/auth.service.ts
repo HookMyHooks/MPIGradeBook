@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { TokenService } from './token/token.service';
-import { User } from '../dtos/user';
 import { RegisterRequest } from '../dtos/register-request';
+import { User } from '../dtos/user';
+import { TokenService } from './token/token.service';
 
 @Injectable({
   providedIn: 'root',
@@ -91,8 +91,6 @@ export class AuthService {
       .pipe(
         tap(({ token, role }) => {
           this.tokenService.setToken(token);
-          console.log(token);
-          console.log(role);
 
           const payload = this.tokenService.getPayload();
 

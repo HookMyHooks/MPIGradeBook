@@ -16,11 +16,18 @@
     >
       Grades History
     </button>
+    <button
+      (click)="setView('bulk')"
+      [class.active]="currentView === 'bulk'"
+    >
+      Bulk Upload Grades
+    </button>
   </div>
 
   <div class="view-container">
     <app-add-grade *ngIf="currentView === 'add'"></app-add-grade>
     <app-grade-list *ngIf="currentView === 'list'"></app-grade-list>
     <app-grade-history *ngIf="currentView === 'history'"></app-grade-history>
+    <app-bulk-upload *ngIf="currentView === 'bulk'"></app-bulk-upload>
   </div>
 </div>

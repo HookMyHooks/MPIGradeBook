@@ -5,6 +5,7 @@ import { GradeListComponent } from '../grade-list/grade-list.component';
 import { GradeHistoryComponent } from '../grade-history/grade-history.component';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { BulkUploadComponent } from '../bulk-upload/bulk-upload.component';
 
 @Component({
   standalone: true,
@@ -16,17 +17,18 @@ import { AuthService } from '../../../services/auth.service';
     AddGradeComponent,
     GradeListComponent,
     GradeHistoryComponent,
+    BulkUploadComponent,
   ],
 })
 export class TeacherDashboardComponent {
-  currentView: 'add' | 'list' | 'history' = 'add';
+  currentView: 'add' | 'list' | 'history' | 'bulk' = 'add';
 
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router
   ) {}
 
-  setView(view: 'add' | 'list' | 'history') {
+  setView(view: 'add' | 'list' | 'history' | 'bulk') {
     this.currentView = view;
   }
 

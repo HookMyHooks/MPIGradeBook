@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class Grade {
     @Column(name = "gradeid", nullable = false)
     private Integer id;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
@@ -36,6 +38,8 @@ public class Grade {
     @JoinColumn(name = "\"studentId\"", nullable = false)
     private model.Student student;
 
-
-
+    @PrePersist
+    public void onCreate() {
+        this.date = LocalDate.now();
+    }
 }
