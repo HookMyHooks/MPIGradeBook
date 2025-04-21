@@ -23,7 +23,7 @@ export class AddGradeComponent implements OnInit {
   newGrade = {
     subjectId: null as unknown as number,
     studentId: null as unknown as number,
-    value: 0,
+    value: 1,
   };
 
   grades: {

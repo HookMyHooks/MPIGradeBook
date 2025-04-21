@@ -64,6 +64,11 @@
       &:hover {
         background-color: #7b68ee;
       }
+      
+      &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
     }
   }
 

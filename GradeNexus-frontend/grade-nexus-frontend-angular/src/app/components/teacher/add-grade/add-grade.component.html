@@ -28,11 +28,11 @@
       />
     </div>
 
-    <button type="submit">Add</button>
+    <button type="submit" [disabled]="!newGrade.studentId || !newGrade.subjectId">Add</button>
   </form>
 
   <div class="grades-preview" *ngIf="grades.length > 0">
-    <h3>Preview Added Grades</h3>
+    <h3>Recently Added Grades</h3>
     <ul>
       <li *ngFor="let g of grades">
         {{ g.studentName }} - {{ g.subjectName }}: {{ g.value }}

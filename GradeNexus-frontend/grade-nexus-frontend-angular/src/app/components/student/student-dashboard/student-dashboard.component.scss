@@ -132,8 +132,14 @@
 }
 
 #subjectSelect {
-  padding: 0.5rem;
   margin-bottom: 1rem;
+  padding: 0.35rem;
+  font-size: 1rem;
+  border-radius: 1vh;
+  border: 0.1vh solid #7b68ee;
+  background-color: #ffffff;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .selectSubjectLabel {
