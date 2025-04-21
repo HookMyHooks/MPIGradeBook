@@ -4,9 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
-import model.Student;
 import model.User;
-import resource.UserResource;
 import utils.JPAUtil;
 
 import java.util.List;

@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { Component, input, output } from '@angular/core';
 @Component({
   selector: 'app-grade-list',
   standalone: true,
@@ -9,5 +8,14 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./grade-list.component.scss'],
 })
 export class GradeListComponent {
-  @Input() grades: { subject: string; teacher: string; value: number; date: Date }[] = [];
+  title = input<string>('');
+  grades = input<
+    { subject: string; value: number; date: Date }[]
+  >([]);
+
+  gradeClick = output<number>();
+
+  onGradeClick(index: number) {
+    this.gradeClick.emit(index);
+  }
 }

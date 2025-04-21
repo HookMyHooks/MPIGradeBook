@@ -1,0 +1,10 @@
+<div class="profile-toolbar">
+    <button class="profile-btn" (click)="toggleDropdown()">
+      {{ userFullName }}
+    </button>
+  
+    <div class="dropdown" *ngIf="showDropdown">
+      <button (click)="logout()">Log out</button>
+    </div>
+  </div>
+  

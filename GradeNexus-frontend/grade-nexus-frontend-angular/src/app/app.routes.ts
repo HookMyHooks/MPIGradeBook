@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { TeacherDashboardComponent } from './components/teacher/teacher-dashboard/teacher-dashboard.component';
-import { StudentDashboardComponent } from './components/student/student-dashboard/student-dashboard.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-import { TeacherGuard } from './guards/teacher.guard';
-import { StudentGuard } from './guards/student.guard';
-import { AuthGuard } from './guards/auth.guard';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
-import { BulkUploadComponent } from './components/bulk-upload/bulk-upload.component';
+import { StudentDashboardComponent } from './components/student/student-dashboard/student-dashboard.component';
+import { TeacherDashboardComponent } from './components/teacher/teacher-dashboard/teacher-dashboard.component';
+import { AuthGuard } from './guards/auth.guard';
+import { StudentGuard } from './guards/student.guard';
+import { TeacherGuard } from './guards/teacher.guard';
+import { LoginRedirectGuard } from './guards/login-redirect.guard';
 
 export const routes: Routes = [
   {
@@ -28,17 +28,16 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [LoginRedirectGuard],
   },
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [LoginRedirectGuard],
   },
   {
     path: 'reset-password',
     component: ResetPasswordComponent,
+    canActivate: [LoginRedirectGuard],
   },
-  {
-    path: 'upload-bulk',
-    component: BulkUploadComponent
-  }
 ];

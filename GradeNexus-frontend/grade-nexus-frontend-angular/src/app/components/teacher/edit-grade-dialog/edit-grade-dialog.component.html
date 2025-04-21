@@ -1,0 +1,16 @@
+<div class="overlay">
+    <div class="modal">
+      <h3>Edit Grade</h3>
+      <p>Subject ID: {{ grade.subjectId }}</p>
+      <p>Student ID: {{ grade.studentId }}</p>
+  
+      <label>New Grade:</label>
+      <input type="number" [(ngModel)]="newValue" min="1" max="10" />
+  
+      <div class="buttons">
+        <button (click)="saveEdit()">Save</button>
+        <button (click)="closeDialog()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  

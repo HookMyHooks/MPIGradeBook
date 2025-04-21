@@ -41,10 +41,6 @@ public class UserService {
 
     public String login(String email, String password) {
         User user = userRepo.findByEmail(email);
-        System.out.println("User from DB: " + user.getEmail());
-
-        System.out.println("Provided: " + password);
-        System.out.println("Stored: " + user.getPassword());
 
         String role;
         if (studentRepo.findByUserId(user.getId()) != null) {
@@ -56,7 +52,7 @@ public class UserService {
         }
 
         if (user.getPassword().equals(password)) {
-            String token = JwtUtil.generateToken(user.getUsername(), role);
+            String token = JwtUtil.generateToken(user.getUsername(), role, user.getId());
 
             return "{\"token\": \"" + token + "\", \"role\": \"" + role + "\"}";
         }

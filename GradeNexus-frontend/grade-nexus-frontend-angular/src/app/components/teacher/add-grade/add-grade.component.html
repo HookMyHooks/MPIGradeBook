@@ -1,20 +1,42 @@
 <div class="add-grade-container">
-    <h2>Add Grade</h2>
+  <h2>Add Grade</h2>
+
+  <form (ngSubmit)="addGrade()">
+    <div class="form-group">
+      <select class="select" [(ngModel)]="newGrade.subjectId" name="subject" required>
+        <option [ngValue]="null" disabled>-- Select Subject --</option>
+        <option *ngFor="let subj of subjects" [ngValue]="subj.id">
+          {{ subj.name }}
+        </option>
+      </select>
   
-    <form (ngSubmit)="addGrade()">
-      <input type="text" placeholder="Subject" [(ngModel)]="newGrade.subject" name="subject" required />
-      <input type="text" placeholder="Student" [(ngModel)]="newGrade.student" name="student" required />
-      <input type="number" placeholder="Grade (1-10)" [(ngModel)]="newGrade.value" name="value" min="1" max="10" required />
-      <button type="submit">Add</button>
-    </form>
+      <select class="select" [(ngModel)]="newGrade.studentId" name="student" required>
+        <option [ngValue]="null" disabled>-- Select Student --</option>
+        <option *ngFor="let stud of students" [ngValue]="stud.id">
+          {{ stud.firstName }} {{ stud.lastName }}
+        </option>
+      </select>
   
-    <div class="grades-preview" *ngIf="grades.length > 0">
-      <h3>Preview Added Grades</h3>
-      <ul>
-        <li *ngFor="let g of grades">
-          {{ g.student }} - {{ g.subject }}: {{ g.value }} ({{ g.date | date:'shortDate' }})
-        </li>
-      </ul>
+      <input
+        type="number"
+        placeholder="Grade (1-10)"
+        [(ngModel)]="newGrade.value"
+        name="value"
+        min="1"
+        max="10"
+        required
+      />
     </div>
+
+    <button type="submit" [disabled]="!newGrade.studentId || !newGrade.subjectId">Add</button>
+  </form>
+
+  <div class="grades-preview" *ngIf="grades.length > 0">
+    <h3>Recently Added Grades</h3>
+    <ul>
+      <li *ngFor="let g of grades">
+        {{ g.studentName }} - {{ g.subjectName }}: {{ g.value }}
+      </li>
+    </ul>
   </div>
-  
+</div>

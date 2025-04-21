@@ -1,25 +1,85 @@
-<div class="student-dashboard">
-  <button class="logout-button" (click)="logout()">Log out</button>
+<div class="dashboard-container">  
+  <profile-toolbar></profile-toolbar>
 
   <h1>Student Dashboard</h1>
 
-  <app-average [grades]="grades"></app-average>
+  <div class="nav-buttons">
+    <button
+      (click)="setView('overview')"
+      [class.active]="currentView === 'overview'"
+    >
+      Overview
+    </button>
+    <button
+      (click)="setView('allGrades')"
+      [class.active]="currentView === 'allGrades'"
+      [disabled]="grades.length === 0"
+    >
+      All grades
+    </button>
 
-  <app-grade-list [grades]="grades"></app-grade-list>
+    <button
+      (click)="setView('gradesPerSubject')"
+      [class.active]="currentView === 'gradesPerSubject'"
+      [disabled]="grades.length === 0"
+    >
+      Grades Per Subject
+    </button>
+  </div>
 
-  <h3>Grade Details</h3>
-  <ul>
-    <li *ngFor="let g of grades; let i = index">
-      <button (click)="selectGrade(i)">{{ g.subject }} ({{ g.value }})</button>
-    </li>
-  </ul>
+  <div class="view-container">
+    <ng-container *ngIf="currentView === 'overview'">
+      <div class="overview-container">
+        <app-average class="average-grade" [grades]="grades"></app-average>
+        <app-grade-list
+          class="grades-list"
+          [grades]="recentGrades"
+          title="Recent Grades"
+        ></app-grade-list>
+      </div>
+    </ng-container>
 
-  <app-grade-item
-    *ngIf="selectedGradeIndex !== null"
-    [grade]="grades[selectedGradeIndex]"
-  ></app-grade-item>
+    <ng-container *ngIf="currentView === 'allGrades'">
+      <div
+        class="all-grades-container"
+        [ngClass]="{ horizontal: selectedGradeIndex !== null }"
+      >
+        <app-grade-list
+          class="grades-list"
+          [grades]="grades"
+          (gradeClick)="selectGrade($event)"
+        ></app-grade-list>
 
-  <button *ngIf="selectedGradeIndex !== null" (click)="clearSelection()">
-    Hide Details.
-  </button>
+        <div class="grade-details" *ngIf="selectedGradeIndex !== null">
+          <student-grade-item [grade]="grades[selectedGradeIndex]"></student-grade-item>
+
+          <button (click)="clearSelection()" class="clear-button">
+            Hide Details
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="currentView === 'gradesPerSubject'">
+      <div class="overview-container">
+        <label for="subjectSelect" class="selectSubjectLabel"
+          >Select Subject:</label
+        >
+        <select id="subjectSelect" [(ngModel)]="selectedSubject">
+          <option [ngValue]="null" disabled>-- Select one --</option>
+          <option *ngFor="let subj of subjects" [value]="subj">
+            {{ subj }}
+          </option>
+        </select>
+
+        <app-average [grades]="getGradesForSelectedSubject()"></app-average>
+
+        <app-grade-list
+          class="grades-list"
+          [grades]="getGradesForSelectedSubject()"
+          title="Grades for {{ selectedSubject }}"
+        ></app-grade-list>
+      </div>
+    </ng-container>
+  </div>
 </div>

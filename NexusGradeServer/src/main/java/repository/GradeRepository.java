@@ -11,10 +11,10 @@ public class GradeRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public GradeRepository()
-    {
+    public GradeRepository() {
         this.em = JPAUtil.getEntityManager();
     }
+
     public Grade findById(int id) {
         return em.find(Grade.class, id);
     }
@@ -24,14 +24,23 @@ public class GradeRepository {
     }
 
     public void save(Grade grade) {
+        em.getTransaction().begin();
         em.persist(grade);
+        em.getTransaction().commit();
     }
 
     public void update(Grade grade) {
+        em.getTransaction().begin();
         em.merge(grade);
+        em.getTransaction().commit();
     }
 
-    public void delete(Grade grade) {
-        em.remove(grade);
+    public void deleteById(int id) {
+        em.getTransaction().begin();
+        Grade grade = em.find(Grade.class, id);
+        if (grade != null) {
+            em.remove(grade);
+        }
+        em.getTransaction().commit();
     }
 }

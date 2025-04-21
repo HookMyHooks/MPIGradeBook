@@ -1,18 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
-  Validators,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
-import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
+import { StudentService } from '../../../services/student.service';
+import { TeacherService } from '../../../services/teacher.service';
 
 @Component({
   selector: 'app-login',
@@ -38,6 +40,8 @@ export class LoginComponent {
   constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
+    private readonly teacherService: TeacherService,
+    private readonly studentService: StudentService,
     private readonly router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -47,23 +51,43 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    if (this.loginForm.invalid) {
-      return;
-    }
-
+    if (this.loginForm.invalid) return;
+  
     this.isLoading = true;
     this.errorMessage = '';
-
+  
     const { email, password } = this.loginForm.value;
-
+  
     this.authService.login(email, password).subscribe({
       next: () => {
-        console.log(email, password);
+        const userId = this.authService.getUserId();
+  
         if (this.authService.isStudent()) {
-          console.log('is student');
-          this.router.navigate(['/student-dashboard']);
+          this.studentService
+            .getStudentByUserId(userId!)
+            .subscribe((studentDetails) => {
+              localStorage.setItem(
+                'userDetails',
+                JSON.stringify({
+                  firstName: studentDetails.firstName,
+                  lastName: studentDetails.lastName,
+                })
+              );
+              this.router.navigate(['/student-dashboard']);
+            });
         } else if (this.authService.isTeacher()) {
-          this.router.navigate(['/teacher-dashboard']);
+          this.teacherService
+            .getTeacherByUserId(userId!)
+            .subscribe((teacherDetails) => {
+              localStorage.setItem(
+                'userDetails',
+                JSON.stringify({
+                  firstName: teacherDetails.firstName,
+                  lastName: teacherDetails.lastName,
+                })
+              );
+              this.router.navigate(['/teacher-dashboard']);
+            });
         } else {
           this.router.navigate(['/']);
         }
@@ -77,5 +101,5 @@ export class LoginComponent {
         this.isLoading = false;
       },
     });
-  }
+  }  
 }

@@ -44,7 +44,6 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(LoginRequestDTO dto) {
         String responseJson = service.login(dto.getEmail(), dto.getPassword());
-        System.out.println(responseJson);
         if (responseJson == null) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials").build();
         }
@@ -60,7 +59,7 @@ public class UserResource {
     public Response register(RegisterRequestDTO dto) {
         boolean success = service.register(dto);
         if (success) {
-            String token = JwtUtil.generateToken(dto.getUsername(), dto.getRole());
+            String token = JwtUtil.generateToken(dto.getUsername(), dto.getRole(), dto.getId());
             return Response.ok("{\"token\": \"" + token + "\", \"role\": \"" + dto.getRole() + "\"}").build();
         } else {
             return Response.status(Response.Status.CONFLICT).entity("Username already exists").build();

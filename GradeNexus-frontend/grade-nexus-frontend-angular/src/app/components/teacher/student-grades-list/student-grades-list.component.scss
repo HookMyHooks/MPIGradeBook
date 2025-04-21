@@ -1,0 +1,61 @@
+.student-grades-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  width: 100%;
+  margin-top: 1rem;
+
+  label.selectStudentLabel {
+    margin-top: 0;
+    color: #6a5acd;
+    font-size: large;
+    text-align: center;
+    width: 100%;
+  }
+
+  select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    width: fit-content;
+    min-width: 15rem;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .student-grade-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+
+    &.horizontal {
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .grade-history-box {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 60vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .grade-details-box {
+      flex: 1;
+      min-width: 25vh;
+      max-width: 40vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

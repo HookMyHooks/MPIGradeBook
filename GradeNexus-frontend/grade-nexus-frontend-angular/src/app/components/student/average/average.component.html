@@ -1,6 +1,6 @@
 <div class="average-box">
     <h2>Current Average:</h2>
     <p *ngIf="grades.length > 0">{{ average | number:'1.2-2' }}</p>
-    <p *ngIf="grades.length === 0">There are no grades available.</p>
+    <p *ngIf="grades.length === 0" class="no-grades">There are no grades available.</p>
   </div>
   

@@ -18,4 +18,22 @@ export class GradeService {
   getGradeById(id: number): Observable<Grade> {
     return this.http.get<Grade>(`${this.baseUrl}/${id}`);
   }
+
+  addGrade(grade: Grade): Observable<Grade> {
+    return this.http.post<Grade>(this.baseUrl, grade);
+  }
+
+  updateGrade(id: number, grade: Grade): Observable<Grade> {
+    return this.http.put<Grade>(`${this.baseUrl}/${id}`, grade);
+  }
+
+  deleteGrade(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  uploadBulkGrades(grades: Grade[]): Observable<string> {
+    return this.http.post<string>(`${this.baseUrl}/bulk`, grades, {
+      responseType: 'text' as 'json',
+    });
+  }
 }
