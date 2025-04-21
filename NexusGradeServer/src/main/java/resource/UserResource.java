@@ -59,7 +59,7 @@ public class UserResource {
     public Response register(RegisterRequestDTO dto) {
         boolean success = service.register(dto);
         if (success) {
-            String token = JwtUtil.generateToken(dto.getUsername(), dto.getRole());
+            String token = JwtUtil.generateToken(dto.getUsername(), dto.getRole(), dto.getId());
             return Response.ok("{\"token\": \"" + token + "\", \"role\": \"" + dto.getRole() + "\"}").build();
         } else {
             return Response.status(Response.Status.CONFLICT).entity("Username already exists").build();

@@ -12,8 +12,9 @@ public class JwtUtil {
     private static final String SECRET_KEY = "your-256-bit-secret-which-is-at-least-32-bytes!";
     private static final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
-    public static String generateToken(String username, String role) {
+    public static String generateToken(String username, String role, int id) {
         return Jwts.builder()
+                .claim("id", id)
                 .subject(username)
                 .claim("role", role)
                 .issuedAt(new Date())

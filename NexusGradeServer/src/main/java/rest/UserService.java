@@ -52,7 +52,7 @@ public class UserService {
         }
 
         if (user.getPassword().equals(password)) {
-            String token = JwtUtil.generateToken(user.getUsername(), role);
+            String token = JwtUtil.generateToken(user.getUsername(), role, user.getId());
 
             return "{\"token\": \"" + token + "\", \"role\": \"" + role + "\"}";
         }

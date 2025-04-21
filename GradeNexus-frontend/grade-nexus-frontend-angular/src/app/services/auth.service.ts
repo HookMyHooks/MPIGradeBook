@@ -33,7 +33,7 @@ export class AuthService {
     if (!token || !payload) return null;
 
     return {
-      id: 0,
+      id: payload.id as number,
       email: payload.email ?? '',
       username: payload.sub ?? '',
       authToken: token,
@@ -65,7 +65,7 @@ export class AuthService {
           const payload = this.tokenService.getPayload();
 
           const user: User = {
-            id: 0,
+            id: payload.id as number,
             email,
             username: payload?.sub,
             authToken: token,
@@ -95,7 +95,7 @@ export class AuthService {
           const payload = this.tokenService.getPayload();
 
           const user: User = {
-            id: 0,
+            id: payload.id as number,
             email: registerData.email,
             username: payload?.sub,
             authToken: token,
@@ -112,6 +112,7 @@ export class AuthService {
 
   logout(): void {
     this.tokenService.logout();
+    localStorage.removeItem('userDetails');
     this.currentUserSubject.next(null);
   }
 
@@ -125,6 +126,10 @@ export class AuthService {
 
   isTeacher(): boolean {
     return this.currentUserValue?.role === 'TEACHER';
+  }
+
+  getUserId(): number | null {
+    return this.currentUserValue?.id ?? null;
   }
 
   getToken(): string | null {

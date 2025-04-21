@@ -7,6 +7,7 @@ import { TeacherDashboardComponent } from './components/teacher/teacher-dashboar
 import { AuthGuard } from './guards/auth.guard';
 import { StudentGuard } from './guards/student.guard';
 import { TeacherGuard } from './guards/teacher.guard';
+import { LoginRedirectGuard } from './guards/login-redirect.guard';
 
 export const routes: Routes = [
   {
@@ -27,13 +28,16 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [LoginRedirectGuard],
   },
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [LoginRedirectGuard],
   },
   {
     path: 'reset-password',
     component: ResetPasswordComponent,
+    canActivate: [LoginRedirectGuard],
   },
 ];

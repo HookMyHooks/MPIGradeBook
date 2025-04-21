@@ -13,6 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { StudentService } from '../../../services/student.service';
+import { TeacherService } from '../../../services/teacher.service';
 
 @Component({
   selector: 'app-login',
@@ -38,6 +40,8 @@ export class LoginComponent {
   constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
+    private readonly teacherService: TeacherService,
+    private readonly studentService: StudentService,
     private readonly router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -59,6 +63,12 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe({
       next: () => {
         if (this.authService.isStudent()) {
+          this.studentService.getStudentByUserId(this.authService.getUserId()!).subscribe((studentDetails) => {
+            localStorage.setItem(
+              'userDetails',
+              JSON.stringify(studentDetails)
+            );
+          });
           this.router.navigate(['/student-dashboard']);
         } else if (this.authService.isTeacher()) {
           this.router.navigate(['/teacher-dashboard']);
