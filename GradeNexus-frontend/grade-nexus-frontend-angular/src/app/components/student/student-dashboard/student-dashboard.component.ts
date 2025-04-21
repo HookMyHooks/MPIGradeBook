@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { GradeService } from '../../../services/grade.service';
 import { StudentService } from '../../../services/student.service';
 import { SubjectService } from '../../../services/subject.service';
 import { TeacherService } from '../../../services/teacher.service';
+import { ProfileToolbarComponent } from '../../shared/profile-toolbar/profile-toolbar.component';
 import { AverageComponent } from '../average/average.component';
 import { GradeItemComponent } from '../grade-item/grade-item.component';
 import { GradeListComponent } from '../grade-list/grade-list.component';
@@ -21,6 +21,7 @@ import { GradeListComponent } from '../grade-list/grade-list.component';
     GradeItemComponent,
     AverageComponent,
     FormsModule,
+    ProfileToolbarComponent,
   ],
   templateUrl: './student-dashboard.component.html',
   styleUrls: ['./student-dashboard.component.scss'],
@@ -43,7 +44,6 @@ export class StudentDashboardComponent implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly router: Router,
     private readonly gradeService: GradeService,
     private readonly subjectService: SubjectService,
     private readonly studentService: StudentService,
@@ -83,7 +83,7 @@ export class StudentDashboardComponent implements OnInit {
                 : 'N/A',
             };
           });
-          
+
           const sortedGrades = [...this.grades].sort(
             (a, b) => b.date.getTime() - a.date.getTime()
           );
@@ -114,10 +114,5 @@ export class StudentDashboardComponent implements OnInit {
   getGradesForSelectedSubject() {
     if (!this.selectedSubject) return [];
     return this.grades.filter((g) => g.subject === this.selectedSubject);
-  }
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 }

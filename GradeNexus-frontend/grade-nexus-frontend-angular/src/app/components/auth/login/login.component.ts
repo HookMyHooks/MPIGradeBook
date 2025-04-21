@@ -51,20 +51,20 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    if (this.loginForm.invalid) {
-      return;
-    }
-
+    if (this.loginForm.invalid) return;
+  
     this.isLoading = true;
     this.errorMessage = '';
-
+  
     const { email, password } = this.loginForm.value;
-
+  
     this.authService.login(email, password).subscribe({
       next: () => {
+        const userId = this.authService.getUserId();
+  
         if (this.authService.isStudent()) {
           this.studentService
-            .getStudentByUserId(this.authService.getUserId()!)
+            .getStudentByUserId(userId!)
             .subscribe((studentDetails) => {
               localStorage.setItem(
                 'userDetails',
@@ -73,11 +73,11 @@ export class LoginComponent {
                   lastName: studentDetails.lastName,
                 })
               );
+              this.router.navigate(['/student-dashboard']);
             });
-          this.router.navigate(['/student-dashboard']);
         } else if (this.authService.isTeacher()) {
           this.teacherService
-            .getTeacherByUserId(this.authService.getUserId()!)
+            .getTeacherByUserId(userId!)
             .subscribe((teacherDetails) => {
               localStorage.setItem(
                 'userDetails',
@@ -86,8 +86,8 @@ export class LoginComponent {
                   lastName: teacherDetails.lastName,
                 })
               );
+              this.router.navigate(['/teacher-dashboard']);
             });
-          this.router.navigate(['/teacher-dashboard']);
         } else {
           this.router.navigate(['/']);
         }
@@ -101,5 +101,5 @@ export class LoginComponent {
         this.isLoading = false;
       },
     });
-  }
+  }  
 }

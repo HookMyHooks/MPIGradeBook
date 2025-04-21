@@ -5,7 +5,7 @@
     [(ngModel)]="selectedStudentId"
     (change)="onSelectStudent()"
   >
-    <option [ngValue]="null">-- Choose student --</option>
+    <option [ngValue]="null" disabled>-- Choose student --</option>
     <option *ngFor="let s of students" [ngValue]="s.id">
       {{ s.firstName }} {{ s.lastName }}
     </option>

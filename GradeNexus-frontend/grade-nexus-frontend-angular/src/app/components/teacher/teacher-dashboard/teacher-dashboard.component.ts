@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { Grade } from '../../../dtos/grade';
 import { Student } from '../../../dtos/student';
@@ -10,6 +9,7 @@ import { GradeService } from '../../../services/grade.service';
 import { StudentService } from '../../../services/student.service';
 import { SubjectService } from '../../../services/subject.service';
 import { TeacherService } from '../../../services/teacher.service';
+import { ProfileToolbarComponent } from '../../shared/profile-toolbar/profile-toolbar.component';
 import { AddGradeComponent } from '../add-grade/add-grade.component';
 import { BulkUploadComponent } from '../bulk-upload/bulk-upload.component';
 import { EditGradeDialogComponent } from '../edit-grade-dialog/edit-grade-dialog.component';
@@ -30,6 +30,7 @@ import { StudentGradesListComponent } from '../student-grades-list/student-grade
     BulkUploadComponent,
     TeacherGradeItemComponent,
     EditGradeDialogComponent,
+    ProfileToolbarComponent,
   ],
 })
 export class TeacherDashboardComponent implements OnInit {
@@ -48,8 +49,7 @@ export class TeacherDashboardComponent implements OnInit {
     private readonly gradeService: GradeService,
     private readonly teacherService: TeacherService,
     private readonly studentService: StudentService,
-    private readonly subjectService: SubjectService,
-    private readonly router: Router
+    private readonly subjectService: SubjectService
   ) {}
 
   ngOnInit(): void {
@@ -120,11 +120,6 @@ export class TeacherDashboardComponent implements OnInit {
         this.selectedGradeIndex = null;
       },
     });
-  }
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 
   onEditGrade() {

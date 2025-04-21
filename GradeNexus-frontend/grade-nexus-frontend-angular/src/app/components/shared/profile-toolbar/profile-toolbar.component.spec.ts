@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InputFieldComponent } from './input-field.component';
+import { ProfileToolbarComponent } from './profile-toolbar.component';
 
-describe('InputFieldComponent', () => {
-  let component: InputFieldComponent;
-  let fixture: ComponentFixture<InputFieldComponent>;
+describe('ProfileToolbarComponent', () => {
+  let component: ProfileToolbarComponent;
+  let fixture: ComponentFixture<ProfileToolbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InputFieldComponent]
+      imports: [ProfileToolbarComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(InputFieldComponent);
+    fixture = TestBed.createComponent(ProfileToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

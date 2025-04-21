@@ -1,5 +1,4 @@
 .dashboard-container {
-  max-width: 90vh;
   margin: auto;
   padding: 2rem;
 
@@ -38,7 +37,7 @@
 
   .view-container {
     border-top: 0.2vh solid #eee;
-    padding-top: 0.1rem;
+    padding-top: 0.3rem;
   }
 }
 
@@ -72,6 +71,7 @@
   justify-content: center;
   gap: 1.5rem;
   width: 100%;
+  margin-top: 1rem;
 
   &.horizontal {
     flex-direction: row;
@@ -98,4 +98,3 @@
     justify-content: center;
   }
 }
-
