@@ -51,7 +51,7 @@
         ></app-grade-list>
 
         <div class="grade-details" *ngIf="selectedGradeIndex !== null">
-          <app-grade-item [grade]="grades[selectedGradeIndex]"></app-grade-item>
+          <student-grade-item [grade]="grades[selectedGradeIndex]"></student-grade-item>
 
           <button (click)="clearSelection()" class="clear-button">
             Hide Details

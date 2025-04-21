@@ -1,0 +1,10 @@
+<div class="grade-item" *ngIf="grade">
+  <h3>{{ grade.subject }}</h3>
+  <p><strong>Grade:</strong> {{ grade.value }}</p>
+  <p><strong>Date:</strong> {{ grade.date | date: 'fullDate' }}</p>
+
+  <div class="actions">
+    <button (click)="onEdit()">Edit</button>
+    <button (click)="onDelete()">Delete</button>
+  </div>
+</div>

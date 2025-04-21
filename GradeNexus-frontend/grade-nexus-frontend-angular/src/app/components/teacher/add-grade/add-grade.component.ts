@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Subject } from '../../../dtos/subject';
 import { Student } from '../../../dtos/student';
+import { Subject } from '../../../dtos/subject';
+import { AuthService } from '../../../services/auth.service';
+import { GradeService } from '../../../services/grade.service';
 import { StudentService } from '../../../services/student.service';
 import { SubjectService } from '../../../services/subject.service';
-import { GradeService } from '../../../services/grade.service';
+import { TeacherService } from '../../../services/teacher.service';
 
 @Component({
   standalone: true,
@@ -31,7 +33,9 @@ export class AddGradeComponent implements OnInit {
   }[] = [];
 
   constructor(
+    private readonly authService: AuthService,
     private readonly gradeService: GradeService,
+    private readonly teacherService: TeacherService,
     private readonly studentService: StudentService,
     private readonly subjectService: SubjectService
   ) {}
@@ -48,8 +52,18 @@ export class AddGradeComponent implements OnInit {
   }
 
   loadSubjects() {
-    this.subjectService.getAllSubjects().subscribe({
-      next: (data) => (this.subjects = data),
+    const userId = this.authService.getUserId()!;
+
+    this.teacherService.getTeacherByUserId(userId).subscribe({
+      next: (teacher) => {
+        this.subjectService.getAllSubjects().subscribe({
+          next: (subjects) => {
+            this.subjects = subjects.filter(
+              (subject) => subject.teacherId === teacher.id
+            );
+          },
+        });
+      },
     });
   }
 

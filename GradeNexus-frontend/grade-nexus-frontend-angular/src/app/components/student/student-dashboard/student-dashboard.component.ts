@@ -28,18 +28,12 @@ import { GradeListComponent } from '../grade-list/grade-list.component';
 export class StudentDashboardComponent implements OnInit {
   grades: { subject: string; value: number; date: Date; teacher: string }[] =
     [];
-  recentGrades = [
-    {
-      subject: 'Matematică',
-      value: 9,
-      date: new Date('2025-03-21'),
-    },
-    {
-      subject: 'Română',
-      value: 10,
-      date: new Date('2025-03-20'),
-    },
-  ];
+  recentGrades: {
+    subject: string;
+    value: number;
+    date: Date;
+    teacher: string;
+  }[] = [];
   selectedGradeIndex: number | null = null;
 
   subjects: string[] = [];
@@ -89,6 +83,7 @@ export class StudentDashboardComponent implements OnInit {
                 : 'N/A',
             };
           });
+          
           const sortedGrades = [...this.grades].sort(
             (a, b) => b.date.getTime() - a.date.getTime()
           );

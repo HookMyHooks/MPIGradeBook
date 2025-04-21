@@ -1,0 +1,39 @@
+<div class="student-grades-container">
+  <label for="studentSelect" class="selectStudentLabel">Select student:</label>
+  <select
+    id="studentSelect"
+    [(ngModel)]="selectedStudentId"
+    (change)="onSelectStudent()"
+  >
+    <option [ngValue]="null">-- Choose student --</option>
+    <option *ngFor="let s of students" [ngValue]="s.id">
+      {{ s.firstName }} {{ s.lastName }}
+    </option>
+  </select>
+
+  <div
+    class="student-grade-display"
+    [ngClass]="{ horizontal: selectedGradeIndex !== null }"
+  >
+    <app-grade-history
+      class="grade-history-box"
+      [history]="history"
+      (gradeClick)="selectGrade($event)"
+    ></app-grade-history>
+
+    <div class="grade-details-box" *ngIf="selectedGradeIndex !== null">
+      <teacher-grade-item
+        [grade]="history[selectedGradeIndex!]"
+        (edit)="onEditGrade()"
+        (delete)="onDeleteGrade()"
+      ></teacher-grade-item>
+    </div>
+  </div>
+</div>
+
+<app-edit-grade-dialog
+  *ngIf="showEditDialog"
+  [grade]="grades[selectedGradeIndex!]"
+  (save)="onSaveEdit($event)"
+  (close)="onCloseEditDialog()"
+></app-edit-grade-dialog>

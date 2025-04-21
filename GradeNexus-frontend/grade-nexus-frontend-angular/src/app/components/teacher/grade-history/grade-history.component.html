@@ -1,6 +1,7 @@
 <div class="grade-history-container">
-    <h2>Grade History</h2>
-  
+  <h2>Grade History</h2>
+
+  <div class="table-wrapper">
     <table>
       <thead>
         <tr>
@@ -11,13 +12,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let h of history">
-          <td>{{ h.student }}</td>
-          <td>{{ h.subject }}</td>
+        <tr *ngFor="let h of history(); let i = index" (click)="onGradeClick(i)">
+          <td class="student">{{ h.student }}</td>
+          <td class="subject">{{ h.subject }}</td>
           <td>{{ h.value }}</td>
-          <td>{{ h.date | date:'shortDate' }}</td>
+          <td>{{ h.date | date: 'shortDate' }}</td>
         </tr>
       </tbody>
     </table>
   </div>
-  
+</div>
